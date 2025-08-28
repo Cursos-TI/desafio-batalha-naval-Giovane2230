@@ -1,19 +1,23 @@
 #include <stdio.h>
 
+#define linhas 10 // Define os valores
+#define colunas 10
+#define navio 3 // Tamanho fixo dos navios
+
 // Desafio Batalha Naval - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
 int main()
 {
-
     // Nível Novato - Posicionamento dos Navios
-    char linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    char cabecalho[linhas] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-    int tabuleiro[10][10] = {0};        // Tabuleiro 10x10
-    int navioHorizontal[3] = {3, 3, 3}; // Navios inicializados
-    int navioVertical[3] = {3, 3, 3};
-    int navio = 3; // Tamanho dos navios
+    int tabuleiro[linhas][colunas] = {0};   // Tabuleiro 10x10
+    int navioHorizontal[navio] = {3, 3, 3}; // Navios inicializados
+    int navioVertical[navio] = {3, 3, 3};
+    int navioDiagonal1[navio] = {3, 3, 3};
+    int navioDiagonal2[navio] = {3, 3, 3};
 
     for (int i = 0; i < navio; i++) // Posicionamento do navio horizontal
     {
@@ -25,10 +29,20 @@ int main()
         tabuleiro[4 + i][7] = navioVertical[i];
     }
 
-    printf("   ");               // Alinhamento das linhas
-    for (int i = 0; i < 10; i++) // Impressão das linhas
+    for (int i = 0; i < navio; i++) // Posicionamento do navio diagonal 1
     {
-        printf(" %c", linha[i]);
+        tabuleiro[5 - i][3 - i] = navioDiagonal1[i];
+    }
+
+    for (int i = 0; i < navio; i++) // Posicionamento do navio diagonal 2
+    {
+        tabuleiro[6 + i][5 - i] = navioDiagonal2[i];
+    }
+
+    printf("   ");               // Alinhamento das linhas do cabecalho
+    for (int i = 0; i < 10; i++) // Impressao das linhas do cabecalho
+    {
+        printf(" %c", cabecalho[i]);
     }
     printf("\n");
 
@@ -41,11 +55,6 @@ int main()
         }
         printf("\n"); // Garante que haja quebra de linha entre as colunas
     }
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
