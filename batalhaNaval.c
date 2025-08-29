@@ -5,8 +5,6 @@
 #define navio 3 // Tamanho fixo dos navios
 
 // Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
 
 int main()
 {
@@ -18,15 +16,16 @@ int main()
     int navioVertical[navio] = {3, 3, 3};
     int navioDiagonal1[navio] = {3, 3, 3};
     int navioDiagonal2[navio] = {3, 3, 3};
+    int habilidade[3][5] = {{5, 5, 5, 5, 5}, {5, 5, 5, 5, 5}, {5, 5, 5, 5, 5}};
 
     for (int i = 0; i < navio; i++) // Posicionamento do navio horizontal
     {
-        tabuleiro[2][3 + i] = navioHorizontal[i];
+        tabuleiro[0][7 + i] = navioHorizontal[i];
     }
 
     for (int i = 0; i < navio; i++) // Posicionamento do navio vertical
     {
-        tabuleiro[4 + i][7] = navioVertical[i];
+        tabuleiro[3 + i][7] = navioVertical[i];
     }
 
     for (int i = 0; i < navio; i++) // Posicionamento do navio diagonal 1
@@ -39,6 +38,39 @@ int main()
         tabuleiro[6 + i][5 - i] = navioDiagonal2[i];
     }
 
+    for (int i = 0; i < 3; i++) // Posicionamento da habilidade cone
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if ((j - 2 >= -i) && (j - 2 <= i)) // Checa se a posicao faz parte do desenho do cone,
+            {
+                tabuleiro[7 + i][9 - j] = habilidade[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < 3; i++) // Posicionamento da habilidade cruz
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if ((i == 1) || (j == 2))
+            {
+                tabuleiro[0 + i][5 - j] = habilidade[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < 3; i++) // Posicionamento da habilidade octaedro
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if ((i - 1) * (i - 1) + (j - 2) * (j - 2) <= 1)
+            {
+                tabuleiro[5 + i][3 - j] = habilidade[i][j];
+            }
+        }
+    }
+
     printf("   ");               // Alinhamento das linhas do cabecalho
     for (int i = 0; i < 10; i++) // Impressao das linhas do cabecalho
     {
@@ -46,36 +78,15 @@ int main()
     }
     printf("\n");
 
-    for (int i = 0; i < 10; i++) // Imprime o tabuleiro usando loops
+    for (int i = 0; i < linhas; i++) // Imprime o tabuleiro usando loops
     {
         printf(" %2d", i + 1); // Imprime as colunas
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < colunas; j++)
         {
             printf(" %d", tabuleiro[i][j]);
         }
         printf("\n"); // Garante que haja quebra de linha entre as colunas
     }
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
 
     return 0;
 }
